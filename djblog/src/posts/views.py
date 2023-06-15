@@ -13,7 +13,14 @@ def post_detail(request,post_id):
 
 
 def new_post(request):
-    form = PostForm()
+    if request.method == 'POST':
+        form = PostForm(request.POST)
+        if form.is_valid():
+            form.save()
+    else:
+        form = PostForm()    
+
+    
 
     return render(request,'posts/new.html',{'form':form})
 
